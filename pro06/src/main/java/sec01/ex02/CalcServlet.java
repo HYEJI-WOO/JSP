@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CalcServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text.html;charset=utf-8"); // 마임타입 결정 - 여기서는 HTML문서
+		response.setContentType("text/html;charset=utf-8"); // 마임타입 결정 - 여기서는 HTML문서
 		PrintWriter out = response.getWriter(); // 출력 객체를 얻어옴
 		
 		String command = request.getParameter("command"); // 수행할 요청
@@ -25,7 +25,7 @@ public class CalcServlet extends HttpServlet {
 			out.print("<html><title>환율계산기</title><body>");
 			out.print("<h2>환율계산기</h2>");
 			out.print("<div>변환값 : " +result+ "</div>");
-			out.print("<a href='/pro06/calc'>환율</a>");
+			out.print("<a href='/pro06/calc'>환율 계산기</a>");
 			return;
 		}
 	}
