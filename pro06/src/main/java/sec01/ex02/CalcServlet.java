@@ -12,7 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/calc")
 public class CalcServlet extends HttpServlet {
 
+	private static float USE_RATE = 1124.70f;
+	private static float JPY_RATE = 10.113f;
+	private static float CNY_RATE = 163.30f;
+	private static float GBP_RATE = 1444.35f;
+	private static float EUR_RATE = 1295.97f;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		response.setContentType("text/html;charset=utf-8"); // 마임타입 결정 - 여기서는 HTML문서
 		PrintWriter out = response.getWriter(); // 출력 객체를 얻어옴
 		
@@ -28,10 +35,34 @@ public class CalcServlet extends HttpServlet {
 			out.print("<a href='/pro06/calc'>환율 계산기</a>");
 			return;
 		}
+		out.print("<html><head><title>환율계산기</title></head><body>");
+		out.print("<form action='/pro06/calc'>");
+		out.print("<input type='text' name='won'>");
+		out.print("<select name='operator'>");
+		out.print("<option value='dollor'>달러</option>");
+		out.print("<option value='en'>엔화</option>");
+		out.print("<option value='wian'>위안</option>");
+		out.print("<option value='pound'>파운드</option>");
+		out.print("<option value='euro'>유로</option>");
+		out.print("</select><input type='hidden' name='command' value='calculate'>");
+		out.print("<button>변환</button></form></body></html>");
+		out.close();
 	}
 
 	private String calculate(float won, String operator) {
-		// 외화의 종류에 따른 계산
-		return "테스트값";
+		String result = null;
+		if(operator.equals("dollor"))  {
+			result = String.format("%.3f", won/USE_RATE);
+		} else if (operator.equals("en")) {
+			result = String.format("%.3f", won/JPY_RATE);
+		} else if (operator.equals("wian")) {
+			result = String.format("%.3f", won/CNY_RATE);
+		} else if (operator.equals("pound")) {
+			result = String.format("%.3f", won/GBP_RATE);
+		} else if (operator.equals("euro")) {
+			result = String.format("%.3f", won/EUR_RATE);
+		}
+	
+		return result;
 	}
 }
