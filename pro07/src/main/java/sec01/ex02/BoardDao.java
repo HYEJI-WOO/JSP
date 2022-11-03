@@ -1,4 +1,4 @@
-package sec01.ex01;
+package sec01.ex02;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberDao {
+import sec01.ex01.MemberVO;
+
+public class BoardDao {
 	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 	private static final String USER = "scott";
@@ -16,22 +18,23 @@ public class MemberDao {
 	private Connection con; // 오라클에 연동하는데 필요한 객체
 	private PreparedStatement pstmt; // 데이터베이스에 쿼리문 전달
 	
-	List<MemberVO> listMembers() {
-		List<MemberVO> list = new ArrayList<MemberVO>();
+	List<BoardVO> listBoards() {
+		List<BoardVO> list = new ArrayList<BoardVO>();
 		connDB();
-		String query = "SELECT * FROM T_MEMBER";
+		String query = "SELECT * FROM BOARD_TBL";
 		try {
 			pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			int i=0;
 			while(rs.next()) {
 				// @param : 테이블 걸럼
-				MemberVO vo = new MemberVO(
-					rs.getString("U_ID"),
-					rs.getString("PWD"),
-					rs.getString("U_NAME"),
-					rs.getString("EMAIL"),
-					rs.getDate("JOINDATE")); 
+				BoardVO vo = new BoardVO(
+					rs.getInt("BNO"),
+					rs.getString("TITLE"),
+					rs.getString("CONTENT"),
+					rs.getString("WRITER"),
+					rs.getDate("REGDATE"),
+					rs.getDate("UPDATEDATE")); 
 				list.add(vo); // 리스트에 추가
 			}
 			
@@ -55,3 +58,5 @@ public class MemberDao {
 	
 
 }
+
+

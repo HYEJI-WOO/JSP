@@ -9,6 +9,15 @@ public class MemberVO {
 	private String email;
 	private Date date;
 	
+	
+	public MemberVO(String uId, String pwd, String uName, String email, Date date) {
+		this.uId = uId;
+		this.pwd = pwd;
+		this.uName = uName;
+		this.email = email;
+		this.date = date;
+	}
+	
 	public String getuId() {
 		return uId;
 	}
