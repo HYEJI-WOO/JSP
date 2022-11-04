@@ -33,11 +33,22 @@ public class MemberServlet extends HttpServlet {
 	      - 출력
 	 */
 	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doHandle(request, response);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doHandle(request, response);
+	}
+
+	private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		String command = request.getParameter("command");
+		
+String command = request.getParameter("command");
 		
 		MemberDao dao = new MemberDao();
 		
@@ -70,10 +81,8 @@ public class MemberServlet extends HttpServlet {
 			}
 			out.print("</table>");
 		}
+	
 	}
 	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doGet(req,resp);
-	}
+	
 }
