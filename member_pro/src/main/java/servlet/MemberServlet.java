@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.MemberDao;
+import domain.MemberVO;
 
 @WebServlet("/member")
 public class MemberServlet extends HttpServlet {
@@ -32,22 +34,46 @@ public class MemberServlet extends HttpServlet {
 	 */
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doHandle(request,response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doHandle(request,response);
-	}
-
-	private void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8"); // POST요청에 대한 한글 인코딩
-		response.setContentType("text/html;charset=utf-8"); // 마임타입지정
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
+		String command = request.getParameter("command");
 		
 		MemberDao dao = new MemberDao();
-		System.out.println(dao.list());
 		
-		
+		if(command!=null && command.equals("memberjoin")) { // 회원가입
+			String id = request.getParameter("id");
+			String pwd = request.getParameter("pwd");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			dao.addMember(new MemberVO(id, pwd, name, email));
+			response.sendRedirect("/pro07"); // 지정된 페이지로 이동
+			// 아래 코드는 실행되지 않음
+		} else {
+			
+			List<MemberVO> listMembers = dao.listMembers();
+			out.print("");
+			out.print("<table border=1><tr>");
+			out.print("<th>아이디</th>");
+			out.print("<th>비밀번호</th>");
+			out.print("<th>이름</th>");
+			out.print("<th>이메일</th>");
+			out.print("<th>가입일</th></tr>");
+			
+			
+			// 반복구간
+			for(MemberVO vo : listMembers) {
+				out.print("<tr><td>" +vo.getId()+ "</td>");
+				out.print("<td>" +vo.getPassword()+ "</td><td>" +vo.getName()+ "</td>");
+				out.print("<td>" +vo.getEmail()+ "</td>");
+				out.print("<td>" +vo.getJoinDate()+ "</td></tr>");
+			}
+			out.print("</table>");
+		}
 	}
-
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req,resp);
+	}
 }

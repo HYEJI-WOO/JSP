@@ -9,8 +9,6 @@ public class MemberVO {
 	private String email;
 	private Date joinDate;
 	
-	
-	
 	public MemberVO(String id, String password, String name, String email, Date joinDate) {
 		this.id = id;
 		this.password = password;
@@ -19,6 +17,15 @@ public class MemberVO {
 		this.joinDate = joinDate;
 	}
 	
+	public MemberVO(String id, String password, String name, String email) {
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+	}
+
+
+
 	public String getId() {
 		return id;
 	}
