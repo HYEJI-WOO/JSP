@@ -19,6 +19,15 @@ public class BoardVO {
 		this.updatedate = updatedate;
 	}
 	
+	
+	public BoardVO(int bno, String title, String content, String writer) {
+		super();
+		this.bno = bno;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+	}
+
 	public int getBno() {
 		return bno;
 	}
