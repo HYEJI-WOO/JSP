@@ -47,14 +47,14 @@ public class MemberDao implements IMemberDao {
 	public void addMember(MemberVO vo) {
 		connDB();
 		String id = vo.getId();
-		String pwd = vo.getPassword();
+		String password = vo.getPassword();
 		String name = vo.getName();
 		String email = vo.getEmail();
 		String query = "INSERT INTO T_MEMBER(U_ID, PWD, U_NAME, EMAIL) VALUES(?,?,?,?)";
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, id);
-			pstmt.setString(2, pwd);
+			pstmt.setString(2, password);
 			pstmt.setString(3, name);
 			pstmt.setString(4, email);
 			pstmt.executeUpdate();
@@ -77,7 +77,6 @@ public class MemberDao implements IMemberDao {
 
 	@Override
 	public List<MemberVO> list() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -41,13 +41,13 @@ public class MemberServlet extends HttpServlet {
 		
 		MemberDao dao = new MemberDao();
 		
-		if(command!=null && command.equals("memberjoin")) { // 회원가입
+		if(command!=null && command.equals("member")) { // 회원가입
 			String id = request.getParameter("id");
-			String pwd = request.getParameter("pwd");
+			String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
-			dao.addMember(new MemberVO(id, pwd, name, email));
-			response.sendRedirect("/pro07"); // 지정된 페이지로 이동
+			dao.addMember(new MemberVO(id, password, name, email));
+			response.sendRedirect("/member_pro"); // 지정된 페이지로 이동
 			// 아래 코드는 실행되지 않음
 		} else {
 			
