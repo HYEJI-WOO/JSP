@@ -30,8 +30,10 @@ public class MemberServlet extends HttpServlet {
 			dao.addMember(new MemberVO(id, pwd, name, email));
 			response.sendRedirect("/pro07"); // 지정된 페이지로 이동
 			// 아래 코드는 실행되지 않음
+		} else if(command!=null && command.equals("delMember")) {
+			System.out.println("회원삭제");
+			dao.delMember("hong");
 		} else {
-			
 			List<MemberVO> listMembers = dao.listMembers();
 			out.print("");
 			out.print("<table border=1><tr>");

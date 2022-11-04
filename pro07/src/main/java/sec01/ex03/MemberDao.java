@@ -16,6 +16,7 @@ public class MemberDao {
 	private Connection con; // 오라클에 연동하는데 필요한 객체
 	private PreparedStatement pstmt; // 데이터베이스에 쿼리문 전달
 	
+	// 회원목록
 	List<MemberVO> listMembers() {
 		List<MemberVO> list = new ArrayList<MemberVO>();
 		connDB();
@@ -61,6 +62,20 @@ public class MemberDao {
 		}
 	}
 	
+	// 회원삭제
+	public void delMember(String id) {
+		String query = "DELETE FROM T_MEMBER WHERE U_ID=?";
+		try {
+			connDB();
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 커넥션풀
 	public void connDB() {
 		try {
 			Class.forName(DRIVER); // OracleDriver객체 생성
