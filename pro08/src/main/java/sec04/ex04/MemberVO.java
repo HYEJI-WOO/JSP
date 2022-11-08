@@ -1,12 +1,14 @@
 package sec04.ex04;
 
+import java.sql.Date;
+
 public class MemberVO {
 	private int mno; // 회원번호
 	private String id; // 아이디
 	private String password; // 비밀번호
 	private String name; // 이름
 	private String email; // 이메일
-	private String joinDate; // 가입일
+	private Date joinDate; // 가입일
 	
 	public MemberVO(int mno, String id, String password, String name, String email) {
 		this.mno = mno;
@@ -57,11 +59,11 @@ public class MemberVO {
 		this.email = email;
 	}
 
-	public String getJoinDate() {
+	public Date getJoinDate() {
 		return joinDate;
 	}
 
-	public void setJoinDate(String joinDate) {
+	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
 

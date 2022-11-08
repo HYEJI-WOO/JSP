@@ -1,16 +1,56 @@
 package sec04.ex04;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 public class MemberDaoImpl implements MemberDao {
+	
+	private DataSource dataSource;
+	
+	public MemberDaoImpl() {
+		try {
+			Context ctx = new InitialContext();
+			Context env = (Context) ctx.lookup("java:/comp/env");
+			dataSource = (DataSource) env.lookup("jdbc/oracle");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	@Override
 	public List<MemberVO> memberList() {
-		List<MemberVO> list = List.of(
-				new MemberVO(1, "hong", "1234", "홍길동", "hong@email"),
-				new MemberVO(2, "kim", "2357", "김길동", "kim@email"),
-				new MemberVO(3, "park", "4567", "박길동", "park@email")
-		);
+		List<MemberVO> list = new ArrayList<MemberVO>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement("SELECT * FROM T_MEMBER");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberVO vo = new MemberVO(
+						rs.getInt("mno"),
+						rs.getString("id"),
+						rs.getString("password"),
+						rs.getString("name"),
+						rs.getString("email")
+				);
+				vo.setJoinDate(rs.getDate("joinDate"));
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 				
 		return list;
 	}

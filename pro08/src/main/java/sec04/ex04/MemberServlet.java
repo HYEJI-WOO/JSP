@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/member/ex04")
 public class MemberServlet extends HttpServlet {
 	/*
-		MemberDao -> MemberServlet
+		MemberDao -> MemberServlet -> MemberView(jsp)
 	*/
 	private MemberDao dao;
 	
@@ -36,7 +36,7 @@ public class MemberServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		RequestDispatcher rd = request.getRequestDispatcher("/member/ex04/views");
+		RequestDispatcher rd = request.getRequestDispatcher("/memberList.jsp");
 		
 		List<MemberVO> memberList = dao.memberList();
 		request.setAttribute("list", memberList);

@@ -2,6 +2,7 @@ package sec04.ex04;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import sec04.ex04.MemberVO;
 
 @WebServlet("/member/ex04/views")
 public class MemberViews extends HttpServlet {
@@ -25,9 +28,16 @@ public class MemberViews extends HttpServlet {
 		out.print("<th>비밀번호</th><th>이름</th>");
 		out.print("<th>이메일</th><th>가입일</th></tr>");
 		
-		// 반복구간
-		out.print("<tr><td>mno</td><td>id</td><td>name</td>");
-		out.print("<td>password</td><td>email</td><td>joinDate</td></tr>");
+		for(MemberVO vo : memberList) {
+			int mno = vo.getMno();
+			String id = vo.getId();
+			String password = vo.getPassword();
+			String name = vo.getName();
+			String email = vo.getEmail();
+			Date joinDate = vo.getJoinDate();
+			out.print("<tr><td>" +mno+ "</td><td>" +id+ "</td><td>" +name+ "</td>");
+			out.print("<td>" +password+ "</td><td>" +email+ "</td><td>" +joinDate+ "</td></tr>");
+		}
 		
 		out.print("</table>");
 	
