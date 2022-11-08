@@ -17,6 +17,16 @@ public class MemberVO {
 		this.name = name;
 		this.email = email;
 	}
+	
+	
+	public MemberVO(String id, String password, String name, String email) {
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+	}
+
+
 
 	public int getMno() {
 		return mno;

@@ -41,7 +41,7 @@ public class MemberDaoImpl implements MemberDao {
 				MemberVO vo = new MemberVO(
 						rs.getInt("mno"),
 						rs.getString("id"),
-						rs.getString("password"),
+						rs.getString("pwd"),
 						rs.getString("name"),
 						rs.getString("email")
 				);
@@ -53,6 +53,26 @@ public class MemberDaoImpl implements MemberDao {
 		}
 				
 		return list;
+	}
+
+	@Override
+	public void addMember(MemberVO vo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String query = "INSERT INTO T_MEMBER(MNO,ID,PWD,NAME,EMAIL) ";
+		query += "VALUES(MNO_SEQ.NEXTVAL,?,?,?,?)";
+				
+		try {
+			conn = dataSource.getConnection();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, vo.getId());
+			pstmt.setString(2, vo.getPassword());
+			pstmt.setString(3, vo.getName());
+			pstmt.setString(4, vo.getEmail());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/member/ex04")
 public class MemberServlet extends HttpServlet {
 	/*
-		MemberDao -> MemberServlet -> MemberView(jsp)
+		MemberDao -> MemberServlet -> MemberViews
 	*/
 	private MemberDao dao;
 	
@@ -36,11 +36,28 @@ public class MemberServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		RequestDispatcher rd = request.getRequestDispatcher("/memberList.jsp");
+		String command = request.getParameter("command");
 		
-		List<MemberVO> memberList = dao.memberList();
-		request.setAttribute("list", memberList);
-		rd.forward(request, response);
+		if(command!=null && command.equals("addMember")) { // 회원가입			
+			MemberVO vo = new MemberVO(
+					request.getParameter("id"),
+					request.getParameter("pwd"),
+					request.getParameter("name"),
+					request.getParameter("email"));
+			dao.addMember(vo);
+			response.sendRedirect("/pro08/index.html");
+		} else if(command!=null && command.equals("delMember")) {
+			System.out.println("회원삭제");
+			System.out.println(request.getParameter("mno"));
+		}
+		
+		else { // 회원목록
+			RequestDispatcher rd = request.getRequestDispatcher("/memberList.jsp");
+			List<MemberVO> memberList = dao.memberList();
+			request.setAttribute("list", memberList);
+			rd.forward(request, response);
+		}
+		
 	}
 
 }
