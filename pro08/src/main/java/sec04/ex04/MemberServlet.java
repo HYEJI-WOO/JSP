@@ -46,9 +46,12 @@ public class MemberServlet extends HttpServlet {
 					request.getParameter("email"));
 			dao.addMember(vo);
 			response.sendRedirect("/pro08/index.html");
-		} else if(command!=null && command.equals("delMember")) {
+		} else if(command!=null && command.equals("delMember")) { // 회원삭제
 			System.out.println("회원삭제");
-			System.out.println(request.getParameter("mno"));
+			String inputMno = request.getParameter("mno");
+			int mno = Integer.parseInt(inputMno);
+			dao.delMember(mno);
+			response.sendRedirect("/pro08/index.html");
 		}
 		
 		else { // 회원목록
