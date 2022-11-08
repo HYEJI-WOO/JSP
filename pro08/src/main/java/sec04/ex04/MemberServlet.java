@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,9 +36,11 @@ public class MemberServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
+		RequestDispatcher rd = request.getRequestDispatcher("/member/ex04/views");
 		
 		List<MemberVO> memberList = dao.memberList();
-		System.out.println(memberList);
+		request.setAttribute("list", memberList);
+		rd.forward(request, response);
 	}
 
 }
