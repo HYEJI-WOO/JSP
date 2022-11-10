@@ -7,8 +7,17 @@
 // 문서를 다 읽으면 pageLoad함수 호출
 window.onload = pageLoad;
 function pageLoad(){
-	window.open("popUp.html","pop","width=400,height=500");
+	if(getCookie("notShowPop")!="true") {
+		window.open("popUp.html","pop","width=400,height=500");
+	}
 }	
+
+function getCookie(name){
+	let matches = document.cookie.match(new RegExp(
+	"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') 
+	+ "=([^;]*)"));
+return matches ? decodeURIComponent(matches[1]) : undefined;
+}
 
 </script>
 </head>
