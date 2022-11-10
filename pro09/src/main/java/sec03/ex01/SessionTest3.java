@@ -20,6 +20,7 @@ public class SessionTest3 extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		
 		HttpSession session = req.getSession();
+		out.print("");
 		if(session.isNew()) {
 			out.print("세션 생성");
 		}
