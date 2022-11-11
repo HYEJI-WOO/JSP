@@ -52,7 +52,18 @@ public class MemberServlet extends HttpServlet {
 			vo.setEmail(request.getParameter("email"));
 			dao.addMember(vo);
 			response.sendRedirect("/member_pro01/member");
-		} 
+		} else if(command!=null && command.equals("delMember")) {
+			String inputMno = request.getParameter("mno");
+			// 예외처리
+			try {
+				int mno = Integer.parseInt(inputMno);
+				dao.delMember(mno);
+				response.sendRedirect("/member_pro01/member");
+			} catch (Exception e) {
+				request.getRequestDispatcher("/exception/error.jsp")
+						.forward(request, response);
+			}
+		}
 		
 		else { // 회원조회
 			List<MemberVO> memberList = dao.memberList();

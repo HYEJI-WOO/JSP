@@ -97,11 +97,27 @@ public class MemberDaoImpl implements MemberDao {
 		}
 	}
 
+	// 로그인 인증검사
 	@Override
 	public boolean isExisted(MemberVO vo) {
-		// 로그인 인증검사
-		
-		return false;
+		boolean result = false;
+		String query = "SELECT DECODE(COUNT(*),1,'TRUE','FALSE') AS RESULT "
+				+ "FROM T_MEMBER WHERE ID=? AND PWD=?";
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		) {
+			pstmt.setString(1, vo.getId());
+			pstmt.setString(2, vo.getPwd());
+			try(ResultSet rs = pstmt.executeQuery();){
+			while(rs.next()) {
+				result = Boolean.parseBoolean(rs.getString("result"));
+			}
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
