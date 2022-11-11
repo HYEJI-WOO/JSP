@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +19,11 @@ import model.MemberVO;
 public class MemberServlet extends HttpServlet {
 	
 	private MemberDao dao;
-
-	public void setDao(MemberDao dao) {
+	
+	@Override
+	public void init() throws ServletException {
+		ServletContext ctx = getServletContext();
+		MemberDao dao = (MemberDao) ctx.getAttribute("memberDao");
 		this.dao = dao;
 	}
 
@@ -42,6 +46,16 @@ public class MemberServlet extends HttpServlet {
 		if(command!=null && command.equals("addMember")) { // 회원추가
 			
 		} else { // 회원조회
+			
+			MemberVO vo = new MemberVO(
+					0,
+					"fefe",
+					"1234",
+					"페페",
+					"fefe@naver.com",
+					null);
+			dao.addMember(vo);
+			
 			List<MemberVO> memberList = dao.memberList();
 			System.out.println(memberList);
 		}
