@@ -45,8 +45,16 @@ public class MemberServlet extends HttpServlet {
 		String command = request.getParameter("command");
 		
 		if(command!=null && command.equals("addMember")) { // 회원추가
-			
-		} else { // 회원조회
+			MemberVO vo = new MemberVO();
+			vo.setId(request.getParameter("id"));
+			vo.setPwd(request.getParameter("pwd"));
+			vo.setName(request.getParameter("name"));
+			vo.setEmail(request.getParameter("email"));
+			dao.addMember(vo);
+			response.sendRedirect("/member_pro01/member");
+		} 
+		
+		else { // 회원조회
 			List<MemberVO> memberList = dao.memberList();
 			request.setAttribute("memberList", memberList);
 			RequestDispatcher rd = request.getRequestDispatcher("/member/memberList.jsp");

@@ -9,10 +9,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원목록</title>
 </head>
 <body>
-표현식
-<%= memberList %>
+<table border=1>
+	<tr>
+		<th>번호</th>
+		<th>아이디</th>
+		<th>비밀번호</th>
+		<th>이름</th>
+		<th>이메일</th>
+		<th>삭제</th>
+	</tr>
+		<% for(MemberVO vo : memberList) {%>
+	<tr>
+		<td><%=vo.getMno()%></td>
+		<td><%=vo.getId()%></td>
+		<td><%=vo.getPwd()%></td>
+		<td><%=vo.getName()%></td>
+		<td><%=vo.getEmail()%></td>
+		<td><a href="#">삭제</a></td>
+	</tr>
+	<%}%>
+</table>
+<a href="member/joinMember.html">회원가입하기</a>
+
 </body>
 </html>
