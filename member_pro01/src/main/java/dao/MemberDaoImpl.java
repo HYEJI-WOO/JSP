@@ -34,7 +34,8 @@ public class MemberDaoImpl implements MemberDao {
 	public static MemberDaoImpl getInstance() {
 		return dao;
 	}
-
+	
+	// 회원 목록
 	@Override
 	public List<MemberVO> memberList() {
 		List<MemberVO> list = new ArrayList<>();
@@ -48,8 +49,8 @@ public class MemberDaoImpl implements MemberDao {
 				MemberVO vo = new MemberVO();
 				vo.setMno(rs.getInt("mno"));
 				vo.setId(rs.getString("id"));
-				vo.setName(rs.getString("pwd"));
-				vo.setPwd(rs.getString("name"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setName(rs.getString("name"));
 				vo.setEmail(rs.getString("email"));
 				vo.setJoinDate(rs.getDate("joinDate"));
 				list.add(vo);
@@ -60,7 +61,8 @@ public class MemberDaoImpl implements MemberDao {
 		
 		return list;
 	}
-
+	
+	// 회원 추가
 	@Override
 	public void addMember(MemberVO vo) {
 		// 회원 추가
@@ -78,10 +80,21 @@ public class MemberDaoImpl implements MemberDao {
 			e.printStackTrace();
 		}
 	}
-
+	
+	// 회원 삭제
 	@Override
 	public void delMember(int mno) {
-		// 회원 삭제
+		
+		String query = "DELETE FROM T_MEMBER WHERE MNO=?";
+		try(
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		) {
+			pstmt.setInt(1, mno);
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
