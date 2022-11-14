@@ -9,10 +9,10 @@ public class MemberDaoTest {
 		MemberDao dao = MemberDaoImpl.getInstance();
 		MemberVO vo = new MemberVO(
 				0,
-				"fefe",
+				"dori",
 				"1234",
-				"페페",
-				"fefe@naver.com",
+				"도리",
+				"dori@naver.com",
 				null);
 		dao.addMember(vo);
 		System.out.println(dao.memberList());
