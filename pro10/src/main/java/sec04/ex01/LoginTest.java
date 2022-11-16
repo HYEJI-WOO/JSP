@@ -27,7 +27,7 @@ public class LoginTest extends HttpServlet {
 			session.setAttribute("loginUser", loginUser);
 			request.getRequestDispatcher("member.jsp").forward(request, response);
 		} else {
-			out.print("<h1>로그인해주세요</h1>);
+			out.print("<h1>로그인해주세요</h1>");
 		}
 		
 	}
