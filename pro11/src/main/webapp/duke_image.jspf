@@ -1,0 +1,5 @@
+<!-- 페이지 디렉티브는 남겨둬야함 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<h2>듀크이미지</h2>
+<img src="image/duke.png">
