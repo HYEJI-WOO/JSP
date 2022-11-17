@@ -21,5 +21,11 @@ public class MemberBean {
 	private String name;
 	private String email;
 	private Date joinDate;
+	
+//	public String getId() {
+//		System.out.println("getId()호출");
+//		return id;
+//	}
+	
 
 }
