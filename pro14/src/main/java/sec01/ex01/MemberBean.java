@@ -22,10 +22,20 @@ public class MemberBean {
 	private String email;
 	private Date joinDate;
 	
+	public MemberBean(String id, String pwd, String name, String email) {
+		super();
+		this.id = id;
+		this.pwd = pwd;
+		this.name = name;
+		this.email = email;
+	}
+	
 //	public String getId() {
 //		System.out.println("getId()호출");
 //		return id;
 //	}
+	
+	
 	
 
 }
