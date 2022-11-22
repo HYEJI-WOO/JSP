@@ -21,6 +21,7 @@ public class MemberBean {
 	private String name;
 	private String email;
 	private Date joinDate;
+	
 	private Address address;
 
 
