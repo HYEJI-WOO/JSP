@@ -1,24 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@ include file="../layout/header.jsp" %>
 <c:if test="${not empty param.msg}">
 	<c:set var="joinMember" value="${param.msg}"/>
 </c:if>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="${contextPath}/resources/js/main.js"></script>
-<script>
-let message = "${param.msg}";
-if(message !='') {
-	alert(message + '님이 회원가입함');
-}
-</script>
-</head>
-<body>
+<div class="container">
 <h1>회원목록</h1>
 <%-- <c:if test="${not empty param.msg}">
 	<h1>${param.msg}님이 회원가입함</h1>
@@ -55,5 +42,6 @@ if(message !='') {
 		</c:otherwise>
 	</c:choose>
 </table>
-</body>
-</html>
+<a href="${contextPath}">메인으로</a><br>
+</div>
+<%@ include file="../layout/footer.jsp" %>
