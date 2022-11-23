@@ -59,8 +59,16 @@ public class MemberServlet extends HttpServlet {
 			dao.addMember(vo);
 			response.sendRedirect(request.getContextPath() + "/member");
 			return;
-		
-		} else { // 404에러
+			
+		} else if(pathInfo.equals("/delMember")){
+			String paramMno = request.getParameter("mno");
+			int mno = Integer.parseInt(paramMno);
+			dao.delMember(mno);
+			response.sendRedirect(request.getContextPath() + "/member");
+			return;
+		}
+	
+		else { // 404에러
 			System.out.println("페이지 찾을 수 없음");
 			return;
 		}
