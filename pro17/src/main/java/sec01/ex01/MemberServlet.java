@@ -47,6 +47,9 @@ public class MemberServlet extends HttpServlet {
 		} else if(pathInfo.equals("/joinForm")) { // 회원가입폼
 			nextPage = "memberJoin";
 		} else if(pathInfo.equals("/modifyForm")) { // 회원수정폼
+			String id = request.getParameter("id");
+			MemberVO memberInfo = dao.findMember(id);
+			request.setAttribute("memberInfo", memberInfo);
 			nextPage = "memberMod";
 		}
 		
@@ -61,10 +64,19 @@ public class MemberServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/member?msg="+message);
 			return;
 			
-		} else if(pathInfo.equals("/delMember")){
+		} else if(pathInfo.equals("/delMember")){ // 삭제 처리
 			String paramMno = request.getParameter("mno");
 			int mno = Integer.parseInt(paramMno);
 			dao.delMember(mno);
+			response.sendRedirect(request.getContextPath() + "/member");
+			return;
+		} else if(pathInfo.equals("/modify")) { // 수정 처리
+			String id = request.getParameter("id");
+			String pwd = request.getParameter("pwd");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			MemberVO vo = new MemberVO(id, pwd, name, email);
+			dao.modMember(vo);
 			response.sendRedirect(request.getContextPath() + "/member");
 			return;
 		}
