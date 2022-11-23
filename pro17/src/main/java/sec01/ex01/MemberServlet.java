@@ -1,9 +1,9 @@
 package sec01.ex01;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
-import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -57,7 +57,8 @@ public class MemberServlet extends HttpServlet {
 			String email = request.getParameter("email");
 			MemberVO vo = new MemberVO(id, pwd, name, email);
 			dao.addMember(vo);
-			response.sendRedirect(request.getContextPath() + "/member");
+			String message = URLEncoder.encode(name, "utf-8");
+			response.sendRedirect(request.getContextPath() + "/member?msg="+message);
 			return;
 			
 		} else if(pathInfo.equals("/delMember")){

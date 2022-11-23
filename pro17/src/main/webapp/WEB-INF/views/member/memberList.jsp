@@ -10,6 +10,9 @@
 </head>
 <body>
 <h1>회원목록</h1>
+<c:if test="${not empty param.msg}">
+	<h1>${param.msg}님이 회원가입함</h1>
+</c:if>
 <table border="1">
 	<tr>
 		<th>회원번호</th>
