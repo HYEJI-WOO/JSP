@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -60,6 +61,18 @@ short : <fmt:formatDate value="${now}" type="both" timeStyle="short"/><br>
 
 <h3>직접 지정</h3>
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd a hh:mm:ss"/><br>
-<fmt:formatDate value="${now}" pattern="yyyy년MM월dd일 a hh시mm분ss초"/><br>
+<fmt:formatDate value="${now}" pattern="G yyyy년MM월dd일 a hh시mm분ss초 SS z"/><br>
+
+<h4>타임존 지정</h4>
+<fmt:timeZone value="America/New York">
+	뉴욕 : <fmt:formatDate value="${now}" type="both" timeStyle="full"/>
+</fmt:timeZone>
+
+<%
+	String[] local = TimeZone.getAvailableIDs();
+	for(String s : local) {
+		out.print(s+"<br>");
+	}
+%>
 </body>
 </html>
