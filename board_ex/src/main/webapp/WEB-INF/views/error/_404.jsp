@@ -4,7 +4,7 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="jumbotron">
-	<h1>페이지를 찾을수 없습니다.</h1>
+	<h1>페이지를 찾을 수 없습니다.</h1>
 	<a href="${contextPath}">메인으로</a>
 </div>
 
