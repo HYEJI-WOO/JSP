@@ -29,7 +29,7 @@
 <script>
 $(function(){
 	$('.test').prev().css('border','1px solid blue')
-	$('.test').next().css('backgroundColor','yellow')
+	$('.test').next().css('backgroundColor','pink')
 	$('.test').nextAll().css('border','1px solid red')
 })
 </script>
