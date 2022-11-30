@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +30,7 @@ public class FileDownload extends HttpServlet {
 		String fileName = request.getParameter("fileName");
 		File downloadFile = new File(fileRepo, fileName); // 다운로드 대상 파일
 		
+		fileName = URLEncoder.encode(fileName, "utf-8");
 		response.setHeader("Cache-Control", "no-cache");
 		response.addHeader("Content-disposition", "attachment; fileName=" + fileName);
 		
@@ -38,7 +40,7 @@ public class FileDownload extends HttpServlet {
 			InputStream in = new FileInputStream(downloadFile); // 입력스트림
 			// dummy.txt -- 입력스트림 --> -- 출력스트림 --> dummy.txt
 			byte[] buffer = new byte[1024*8];
-			in.read(buffer);
+			
 			int count=0;
 			while((count = in.read(buffer))!=-1) { // 읽어 올 값이 있다면
 				out.write(buffer,0,count);
