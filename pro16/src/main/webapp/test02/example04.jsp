@@ -8,12 +8,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
-<h1>closest()</h1>
-<p>하위요소에서 상위요소로 탐색하여 가장 가까운 요소 선택</p>
+<h1>find()</h1>
+<p>상위요소에서 하위요소로 탐색하여 가장 가까운 요소 선택</p>
 <div class="content">
 	content Div
 	<div>
-		<div>테스트03</div>
+		<div>테스트04</div>
 		<ul>
 			<li id="test">자손선택자01</li>
 			<li>자손선택자02</li>
@@ -28,7 +28,7 @@
 </body>
 <script>
 $(function(){
-	$('#test').closest('div').css('border','1px solid blue')
+	$('.content').find('p').css('border','1px solid blue')
 })
 </script>
 </html>
