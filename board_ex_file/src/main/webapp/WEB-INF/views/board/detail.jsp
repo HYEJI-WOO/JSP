@@ -36,7 +36,7 @@
 			<td colspan="3">
 				<div>
 				<c:if test="${not empty board.imageFileName}">
-					${board.imageFileName}
+					<img src="${contextPath}/fileDownload?bno=${board.bno}&imageFileName=${board.imageFileName}">
 				</c:if>
 				<c:if test="${empty board.imageFileName}">
 					<p>등록된 이미지가 없습니다.</p>
