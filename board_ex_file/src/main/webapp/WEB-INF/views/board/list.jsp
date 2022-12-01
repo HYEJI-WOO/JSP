@@ -28,6 +28,7 @@
 			</c:forEach>
 		</table>
 	</form>
+	<a href="${contextPath}/board/writeForm" class="btn btn-primary">글쓰기</a>
 </div>
 
 <%@ include file="../layout/footer.jsp" %>  
@@ -40,7 +41,7 @@ $(function(){
 		//let bnoData = "<input type='hidden' name='bno' value='"+$(this).data('bno')+"'/>";
 		let bnoData = "<input type='hidden' name='bno' value='"+$(this).attr('href')+"'/>";
 		listForm.append(bnoData)
-				.attr("action", "detail")
+				.attr("action", "${contextPath}/board/detail")
 				.submit();
 	});
 });

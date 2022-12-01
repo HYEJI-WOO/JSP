@@ -15,4 +15,12 @@ public class BoardService {
 	public List<BoardVO> boardList() {
 		return dao.selectAll();
 	}
+	
+	public int addBoard(BoardVO vo) {
+		return dao.insertBoard(vo);
+	}
+	
+	public BoardVO findBoard(int bno) {
+		return dao.selectOne(bno);
+	}
 }

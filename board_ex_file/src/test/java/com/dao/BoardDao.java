@@ -21,7 +21,8 @@ public class BoardDao {
 	public BoardDao() {
 		dataSource = ConnectionUtil.getDataSource();
 	}
-
+	
+	// 글목록
 	public List<BoardVO> selectAll() {
 		String query = "select * from board_tbl order by bno desc";
 		List<BoardVO> list = new ArrayList();
@@ -45,6 +46,71 @@ public class BoardDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	// 글쓰기
+	public int insertBoard(BoardVO vo) {
+		String query = "INSERT INTO BOARD_TBL(BNO, TITLE, CONTENT, WRITER, imageFileName) VALUES(?,?,?,?,?)";
+		int boardNo = getNewBno();
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		){
+			pstmt.setInt(1, boardNo);
+			pstmt.setString(2, vo.getTitle());
+			pstmt.setString(3, vo.getContent());
+			pstmt.setString(4, vo.getWriter());
+			pstmt.setString(5, vo.getImageFileName());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return boardNo;
+	}
+	
+	// 새로운 글번호 생성
+	public int getNewBno() {
+		int boardNo = 0;
+		String query = "SELECT MAX(BNO)+1 AS boardNO FROM BOARD_TBL";
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+		){
+			if(rs.next()) {
+				boardNo = rs.getInt("boardNO");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return boardNo;
+	}
+	
+	// 글상세
+	public BoardVO selectOne(int bno) {
+		BoardVO vo = null;
+		String query = "select * from board_tbl where bno=?";
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		){
+			pstmt.setInt(1, bno);
+			try(ResultSet rs = pstmt.executeQuery();) {
+				if(rs.next()) {
+					vo = BoardVO.builder()
+						.bno(rs.getInt("bno"))
+						.title(rs.getString("title"))
+						.content(rs.getString("content"))
+						.writer(rs.getString("writer"))
+						.writeDate(rs.getDate("writeDate"))
+						.imageFileName(rs.getString("imageFileName"))
+						.build();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
 	}
 
 }

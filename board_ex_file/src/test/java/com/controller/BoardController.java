@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FileUtils;
 
 import com.dao.BoardDao;
 import com.domain.BoardVO;
@@ -59,7 +60,9 @@ public class BoardController extends HttpServlet {
 		// 글상세
 		else if(pathInfo.equals("/detail")) {
 			String parambno = request.getParameter("bno");
-			System.out.println(parambno);
+			int bno = Integer.parseInt(parambno);
+			BoardVO board = service.findBoard(bno);
+			request.setAttribute("board", board);
 			nextPage = "detail";
 		}
 		
@@ -71,9 +74,24 @@ public class BoardController extends HttpServlet {
 		// 글쓰기 처리
 		else if(pathInfo.equals("/write")) {
 			Map<String, String> req = getMultipartRequest(request);
-			System.out.println(req.get("title"));
-			System.out.println(req.get("content"));
-			System.out.println(req.get("writer"));
+			String imageFileName = req.get("imageFileName");
+			
+			BoardVO vo = BoardVO.builder()
+					.title(req.get("title"))
+					.content(req.get("content"))
+					.writer(req.get("writer"))
+					.imageFileName(req.get("imageFileName"))
+					.build();
+			int boardNO = service.addBoard(vo);
+
+			// 이미지파일을 첨부한 경우
+			if(imageFileName!=null && imageFileName.length()>0) {
+				File srcFile = new File("c:/file_repo/temp", imageFileName);
+				File destFile = new File("c:/file_repo/" + boardNO);
+				destFile.mkdirs();
+				FileUtils.moveFileToDirectory(srcFile, destFile, false);
+			}
+			response.sendRedirect(contextPath+"/board");
 			return;
 		}
 		
@@ -88,7 +106,7 @@ public class BoardController extends HttpServlet {
 	
 	private Map<String ,String> getMultipartRequest(HttpServletRequest request) {
 		Map<String, String> boardMap = new HashMap<>();
-		File currentDirPath = new File("c:/file_repo");
+		File currentDirPath = new File("c:/file_repo/temp");
 		
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload repository = new ServletFileUpload(factory);

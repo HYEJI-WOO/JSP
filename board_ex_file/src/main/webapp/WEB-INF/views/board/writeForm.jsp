@@ -21,7 +21,7 @@
 		<div class="form-group">
 			첨부파일 : <input type="file" class="form-control" name="imageFileName">
 		</div>
-		<button>글쓰기</button>
+		<button class="btn btn-primary">글쓰기</button>
 	</form>
 	<div class="preview"></div>
 </div>
