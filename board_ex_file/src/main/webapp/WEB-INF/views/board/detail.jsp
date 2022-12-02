@@ -49,7 +49,9 @@
 						</div>
 					</c:if>
 					<c:if test="${empty board.imageFileName}">
+					<div class="preview">
 						<p>등록된 이미지가 없습니다.</p>
+					</div>
 					</c:if>
 					</div>
 				</td>
@@ -79,6 +81,8 @@ $(function(){
 	let viewForm = $('#viewForm');
 	let titleObj = $('input[name="title"]');
 	let contentObj = $('textarea[name="content"]');
+	let imageFile = "${board.imageFileName}";
+	let pTag = $('.preview p').html();
 	
 	let originImg = $('.originImg').clone();
 	let titleVal = titleObj.val();
@@ -100,6 +104,9 @@ $(function(){
 		$('input[type="file"]').val(''); // 파일폼 초기화
 		titleObj.val(titleVal); // 수정전 제목 복원
 		contentObj.val(contentVal); // 수정전 내용 복원
+		if(imageFile==''||imageFile==null) {
+			$('.preview').html(pTag);
+		}
 	});
 	
 	// 목록으로
