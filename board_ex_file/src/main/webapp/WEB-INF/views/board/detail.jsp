@@ -12,7 +12,10 @@
 		<table class="table">
 			<tr>
 				<th>글번호</th>
-				<td>${board.bno}</td>
+				<td>
+					${board.bno}
+					<input type="hidden" name="bno" value="${board.bno}">
+				</td>
 				<th>조회수</th>
 				<td>000</td>
 			</tr>
@@ -40,6 +43,7 @@
 					<input type="file" name="imageFileName" class="form-control viewMode">
 					<div class="my-2">
 					<c:if test="${not empty board.imageFileName}">
+						<input type="hidden" name="originFileName" value="${board.imageFileName}">
 						<div class="preview">
 							<img class="originImg" src="${contextPath}/fileDownload?bno=${board.bno}&imageFileName=${board.imageFileName}">
 						</div>
@@ -53,13 +57,13 @@
 			<tr>
 				<td colspan="4" class="text-center">
 					<button type="button" class="btn btn-info toModForm">수정하기</button>
-					<button type="button" class="btn btn-secondary">삭제</button>
+					<button type="button" class="btn btn-secondary remove">삭제</button>
 					<button type="button" class="btn btn-success toList">목록</button>
 				</td>
 			</tr>
 			<tr class="viewMode">
 				<td colspan="4" class="text-center">
-					<button type="button" class="btn btn-primary">수정</button>
+					<button type="button" class="btn btn-primary modify">수정</button>
 					<button type="button" class="btn btn-secondary backViewMode">취소</button>
 				</td>
 			</tr>
@@ -81,14 +85,14 @@ $(function(){
 	let contentVal = contentObj.val();
 	
 	// 수정모드
-	$('.toModForm').on('click',function(){
+	$('.toModForm').on('click', function(){
 		$('input[name="title"],textarea[name="content"]').attr("readonly",false);
 		$('.viewMode').show();
 		$(this).closest('tr').hide();
 	});
 	
 	// 뷰모드
-	$('.backViewMode').on('click',function(){
+	$('.backViewMode').on('click', function(){
 		$('input[name="title"],textarea[name="content"]').attr("readonly",true);
 		$('.viewMode').hide();
 		$(this).closest('tr').prev().show();
@@ -99,7 +103,7 @@ $(function(){
 	});
 	
 	// 목록으로
-	$('.toList').on('click',function(){
+	$('.toList').on('click', function(){
 		viewForm.attr({
 			"action" : "${contextPath}/board",
 			"method" : "get"
@@ -107,8 +111,23 @@ $(function(){
 		.submit();
 	});
 	
+	// 수정 처리
+	$('.modify').on('click', function(){
+		viewForm.attr({
+			"action" : "${contextPath}/board/modBoard",
+			"method" : "post"
+		}).submit();
+	});
+	
+	// 삭제 처리
+	$('.remove').on('click', function(){
+		viewForm.attr({
+			"action" : "${contextPath}/board/removeBoard",
+			"method" : "post"
+		}).submit();
+	});
+	
 	$('input[type="file"]').on('change', function(){
-		console.log();
 		if(this.files[0]) {
 			let reader = new FileReader(); // 파일읽기 객체
 			reader.onload = function(e){ // 파일을 읽으면 이벤트 발생

@@ -23,4 +23,12 @@ public class BoardService {
 	public BoardVO findBoard(int bno) {
 		return dao.selectOne(bno);
 	}
+	
+	public void modBoard(BoardVO vo) {
+		dao.updateBoard(vo);
+	}
+	
+	public void removeBoard(int bno) {
+		dao.deleteBoard(bno);
+	}
 }

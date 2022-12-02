@@ -87,9 +87,56 @@ public class BoardController extends HttpServlet {
 			// 이미지파일을 첨부한 경우
 			if(imageFileName!=null && imageFileName.length()>0) {
 				File srcFile = new File("c:/file_repo/temp", imageFileName);
-				File destFile = new File("c:/file_repo/" + boardNO);
+				File destFile = new File("c:/file_repo/"+boardNO);
 				destFile.mkdirs();
 				FileUtils.moveFileToDirectory(srcFile, destFile, false);
+			}
+			response.sendRedirect(contextPath+"/board");
+			return;
+		}
+		
+		// 글수정 처리
+		else if(pathInfo.equals("/modBoard")) {
+			Map<String, String> req = getMultipartRequest(request);
+			String paramBno = req.get("bno");
+			int bno = Integer.parseInt(paramBno);
+			String title = req.get("title");
+			String content = req.get("content");
+			String imageFileName = req.get("imageFileName");
+			
+			BoardVO vo = BoardVO.builder()
+					.bno(bno)
+					.title(title)
+					.content(content)
+					.imageFileName(imageFileName)
+					.build();
+			service.modBoard(vo);
+			
+			if(imageFileName!=null) { // 이미지 파일이 있을 때
+				String originFileName = req.get("originFileName");
+				// 새로운 이미지 업로드
+				File srcFile = new File("c:/file_repo/temp", imageFileName);
+				File destFile = new File("c:/file_repo/"+bno);
+				destFile.mkdirs();
+				FileUtils.moveFileToDirectory(srcFile, destFile, false);
+				// 기존 이미지 삭제
+				if(originFileName!=null) {
+					File oldFile = new File("c:/file_repo/"+bno+"/"+originFileName);
+					oldFile.delete();
+				}
+			} 
+			response.sendRedirect(contextPath+"/board");
+			return;
+		}
+		
+		else if(pathInfo.equals("/removeBoard")) {
+			Map<String, String> req = getMultipartRequest(request);
+			String paramBno = req.get("bno");
+			int bno = Integer.parseInt(paramBno);
+			service.removeBoard(bno);
+			File targetDir = new File("c:/file_repo/"+bno);
+			if(targetDir.exists()) { // 대상 폴더가 존재한다면
+				FileUtils.deleteDirectory(targetDir);
 			}
 			response.sendRedirect(contextPath+"/board");
 			return;
