@@ -8,7 +8,7 @@
 	<div class="jumbotron">
 		<h1>글상세</h1>
 	</div>
-	<form id="viewForm" action="${contextPath}/board/modBoard" enctype="multipart/form-data" method="post">
+	<form id="viewForm" enctype="multipart/form-data">
 		<table class="table">
 			<tr>
 				<th>글번호</th>
@@ -54,7 +54,7 @@
 				<td colspan="4" class="text-center">
 					<button type="button" class="btn btn-info toModForm">수정하기</button>
 					<button type="button" class="btn btn-secondary">삭제</button>
-					<button type="button" class="btn btn-success">목록</button>
+					<button type="button" class="btn btn-success toList">목록</button>
 				</td>
 			</tr>
 			<tr class="viewMode">
@@ -92,10 +92,19 @@ $(function(){
 		$('input[name="title"],textarea[name="content"]').attr("readonly",true);
 		$('.viewMode').hide();
 		$(this).closest('tr').prev().show();
-		$('.preview').html(originImg);
+		$('.preview').html(originImg); // 수정전 이미지 복원
 		$('input[type="file"]').val(''); // 파일폼 초기화
-		titleObj.val(titleVal);
-		contentObj.val(contentVal);
+		titleObj.val(titleVal); // 수정전 제목 복원
+		contentObj.val(contentVal); // 수정전 내용 복원
+	});
+	
+	// 목록으로
+	$('.toList').on('click',function(){
+		viewForm.attr({
+			"action" : "${contextPath}/board",
+			"method" : "get"
+		}).empty() // 파라미터 정보 삭제
+		.submit();
 	});
 	
 	$('input[type="file"]').on('change', function(){
