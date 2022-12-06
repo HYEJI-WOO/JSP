@@ -11,7 +11,9 @@ public class ConnectionUtil {
 	private static final String RESOURCE_NAME = "jdbc/oracle";
 	
 	public static DataSource getDataSource() {
+		
 		DataSource dataSource = null;
+		
 		try {
 			Context ctx = new InitialContext();
 			Context envCtx = (Context) ctx.lookup(RESOURCE);
