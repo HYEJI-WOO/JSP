@@ -98,11 +98,14 @@ $(function(){
 		$('input[name="title"],textarea[name="content"]').attr("readonly",false);
 		$('.viewMode').show();
 		$(this).closest('tr').hide();
+		
 		$('.pbtn').on('click', function() {
 			$('input[name="imageFileName"]').val('');
-			$('.preview').html('');
+			$('input[type="file"]').val('')
 			$(this).hide();
+			$('.preview').html('등록된 이미지가 없습니다.');
 		});
+		
 	});
 	
 	// 뷰모드

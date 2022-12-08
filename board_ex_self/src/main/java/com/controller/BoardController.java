@@ -125,9 +125,16 @@ public class BoardController extends HttpServlet {
 					oldFile.delete();
 				}
 			}
+			else {
+				File targetDir = new File("c:/file_repo/"+bno);
+				if(targetDir.exists()) { // 대상 폴더가 존재한다면
+					FileUtils.deleteDirectory(targetDir);
+				}
+			}
+			
 			response.sendRedirect(contextPath+"/board/detail?bno=" + bno);
 			return;
-		}
+	}
 		
 		else if(pathInfo.equals("/removeBoard")) {
 			Map<String, String> req = getMultipartRequest(request);
