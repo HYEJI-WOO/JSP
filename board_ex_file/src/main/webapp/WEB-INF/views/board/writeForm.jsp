@@ -5,7 +5,7 @@
   
 <div class="container">
 	<div class="jumbotron">
-		<h1>글상세</h1>
+		<h1>글작성</h1>
 	</div>
 	
 	<form action="${contextPath}/board/write" method="post" enctype="multipart/form-data">

@@ -15,13 +15,23 @@
 <script src="${contextPath}/resources/js/common.js"></script>  
 </head>
 <body>
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-between">
   <ul class="navbar-nav">
     <li class="nav-item">
       <a class="nav-link" href="#">Link 1</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Link 2</a>
+    </li>
+  </ul>
+  
+  <!-- 로그인,로그아웃,회원가입 -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="${contextPath}/member/joinForm">회원가입</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">로그인</a>
     </li>
   </ul>
 
