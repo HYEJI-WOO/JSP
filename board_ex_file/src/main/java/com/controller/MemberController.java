@@ -36,7 +36,14 @@ public class MemberController extends HttpServlet {
 		
 		// 회원가입 처리
 		else if(pathInfo.equals("/join")) {
-			
+			String id = request.getParameter("id");
+			String pwd = (String) request.getAttribute("pwd");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			System.out.println(id);
+			System.out.println(pwd);
+			System.out.println(name);
+			System.out.println(email);
 		}
 		
 		else {
