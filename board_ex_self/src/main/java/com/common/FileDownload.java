@@ -34,7 +34,7 @@ public class FileDownload extends HttpServlet {
 		
 		try(
 			OutputStream out = response.getOutputStream(); // 출력스트림
-				InputStream in = new FileInputStream(downloadFile); // 입력스트림
+			InputStream in = new FileInputStream(downloadFile); // 입력스트림
 		){
 				byte[] buffer = new byte[1024*8];
 				int count=0;
