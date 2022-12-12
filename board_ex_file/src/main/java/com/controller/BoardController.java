@@ -114,8 +114,7 @@ public class BoardController extends HttpServlet {
 				multiReq.uploadImage(bno, imageFileName);
 				// 기존 이미지 삭제
 				if(originFileName!=null) {
-					File oldFile = new File("c:/file_repo/"+bno+"/"+originFileName);
-					oldFile.delete();
+					multiReq.deleteOriginImage(bno, originFileName);
 				}
 			} 
 			response.sendRedirect(contextPath+"/board");

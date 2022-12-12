@@ -3,14 +3,27 @@ package com.controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.dao.MemberDao;
+import com.domain.MemberVO;
+import com.service.MemberService;
 
 @WebServlet("/member/*")
 public class MemberController extends HttpServlet {
+	
+	private MemberService service;
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		service = new MemberService(new MemberDao());
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doHandle(request, response);
@@ -40,10 +53,39 @@ public class MemberController extends HttpServlet {
 			String pwd = (String) request.getAttribute("pwd");
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
-			System.out.println(id);
-			System.out.println(pwd);
-			System.out.println(name);
-			System.out.println(email);
+			MemberVO vo = MemberVO.builder()
+					.id(id)
+					.pwd(pwd)
+					.name(name)
+					.email(email)
+					.build();
+			service.memberJoin(vo);
+			response.sendRedirect(contextPath+"/board");
+			return;
+		}
+		
+		// 로그인폼
+		else if(pathInfo.equals("/loginForm")) {
+			nextPage = "loginForm";
+		}
+		
+		// 로그인처리
+		else if(pathInfo.equals("/login")) {
+			String id = request.getParameter("id");
+			String pwd = (String) request.getAttribute("pwd");
+			MemberVO vo = MemberVO.builder()
+					.id(id)
+					.pwd(pwd)
+					.build();
+			
+			if(service.loginService(vo)) {
+				HttpSession session = request.getSession();
+				session.setAttribute("auth", vo.getId());
+				response.sendRedirect(contextPath+"/board");
+				return;
+			} else {
+				System.out.println("MemberController.login : 아이디 또는 비밀번호 불일치");
+			}
 		}
 		
 		else {
