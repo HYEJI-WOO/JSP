@@ -75,6 +75,7 @@ public class BoardController extends HttpServlet {
 			dao.delArticle(bno);
 			response.sendRedirect(contextPath+"/board");
 			return;
+			
 		} else if(pathInfo.equals("/modArticle")) {
 			String paramBno = request.getParameter("bno");
 			int bno = Integer.parseInt(paramBno);
@@ -85,9 +86,7 @@ public class BoardController extends HttpServlet {
 			dao.modArticle(vo);
 			response.sendRedirect(contextPath+"/board");
 			return;
-		}
-		
-		else {
+		} else {
 			request.getRequestDispatcher("/WEB-INF/views/error/_404.jsp").forward(request, response);
 			return;
 		}

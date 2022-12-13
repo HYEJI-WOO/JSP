@@ -86,8 +86,8 @@ public class BoardController extends HttpServlet {
 
 			// 이미지파일을 첨부한 경우
 			if(imageFileName!=null && imageFileName.length()>0) {
-				File srcFile = new File("c:/file_repo/temp", imageFileName);
-				File destFile = new File("c:/file_repo/"+boardNO);
+				File srcFile = new File("c:/file_repo2/temp", imageFileName);
+				File destFile = new File("c:/file_repo2/"+boardNO);
 				destFile.mkdirs();
 				FileUtils.moveFileToDirectory(srcFile, destFile, false);
 			}
@@ -115,18 +115,18 @@ public class BoardController extends HttpServlet {
 			if(imageFileName!=null) { // 이미지 파일이 있을 때
 				String originFileName = req.get("originFileName");
 				// 새로운 이미지 업로드
-				File srcFile = new File("c:/file_repo/temp", imageFileName);
-				File destFile = new File("c:/file_repo/"+bno);
+				File srcFile = new File("c:/file_repo2/temp", imageFileName);
+				File destFile = new File("c:/file_repo2/"+bno);
 				destFile.mkdirs();
 				FileUtils.moveFileToDirectory(srcFile, destFile, false);
 				// 기존 이미지 삭제
 				if(originFileName!=null) {
-					File oldFile = new File("c:/file_repo/"+bno+"/"+originFileName);
+					File oldFile = new File("c:/file_repo2/"+bno+"/"+originFileName);
 					oldFile.delete();
 				}
 			}
 			else {
-				File targetDir = new File("c:/file_repo/"+bno);
+				File targetDir = new File("c:/file_repo2/"+bno);
 				if(targetDir.exists()) { // 대상 폴더가 존재한다면
 					FileUtils.deleteDirectory(targetDir);
 				}
@@ -141,7 +141,7 @@ public class BoardController extends HttpServlet {
 			String paramBno = req.get("bno");
 			int bno = Integer.parseInt(paramBno);
 			service.removeBoard(bno);
-			File targetDir = new File("c:/file_repo/"+bno);
+			File targetDir = new File("c:/file_repo2/"+bno);
 			if(targetDir.exists()) { // 대상 폴더가 존재한다면
 				FileUtils.deleteDirectory(targetDir);
 			}
@@ -160,7 +160,7 @@ public class BoardController extends HttpServlet {
 	
 	private Map<String ,String> getMultipartRequest(HttpServletRequest request) {
 		Map<String, String> boardMap = new HashMap<>();
-		File currentDirPath = new File("c:/file_repo/temp");
+		File currentDirPath = new File("c:/file_repo2/temp");
 		
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload repository = new ServletFileUpload(factory);
