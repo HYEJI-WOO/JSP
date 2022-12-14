@@ -51,6 +51,13 @@ $(function(){
 	}); // ajax end
 	
 	$('.content').on('click','.del', function() {
-		alert($(this).data('bno'));
-	});
+		$.ajax({
+			type : 'post',
+			url : "/pro16_/board/del",
+			success : function() {
+				
+			}
+		
+		})
+	}); // ajax end
 }); // end

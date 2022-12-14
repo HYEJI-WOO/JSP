@@ -48,7 +48,9 @@ public class BoardServlet extends HttpServlet {
 			out.print(detail);
 		} else if(pathInfo.equals("/del")) {
 			String paramBno = request.getParameter("bno");
-			
+			int bno = Integer.parseInt(paramBno);
+			dao.del(bno);
+			return;
 		} else {
 			throw new ServletException();
 		}
