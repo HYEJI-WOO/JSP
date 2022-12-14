@@ -21,6 +21,7 @@
 			<th>작성일</th>
 		</tr>
 	</table>
+	<div class="content"></div>
 </div>
 </body>
 <script>
