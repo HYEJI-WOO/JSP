@@ -74,7 +74,7 @@ public class BoardDao {
 		return vo;
 	}
 	
-	public void del(int bno) {
+	public void delete(int bno) {
 		String query = "DELETE FROM board_t WHERE bno=?";
 		try(
 			Connection conn = dataSource.getConnection();
@@ -82,8 +82,42 @@ public class BoardDao {
 		){
 			pstmt.setInt(1, bno);
 			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public void write(BoardVO vo) {
+		String query = "insert into board_t(bno, title, content, writer) values(bno_seq.nextval, ?, ?, ?)";
+		try(
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		){
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setString(3, vo.getWriter());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void update(BoardVO vo) {
+		String query = "update board_t set title=?, content=? where bno=?";
+		try (
+			Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(query);
+		){
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setInt(3, vo.getBno());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+		
 }
