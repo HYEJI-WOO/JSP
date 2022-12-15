@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dao.MemberDao;
+import com.domain.AuthVO;
 import com.domain.MemberVO;
 import com.service.MemberService;
 
@@ -80,12 +81,22 @@ public class MemberController extends HttpServlet {
 			
 			if(service.loginService(vo)) {
 				HttpSession session = request.getSession();
-				session.setAttribute("auth", vo.getId());
+				AuthVO authVO = new AuthVO();
+				authVO.setId(vo.getId());
+				session.setAttribute("auth", authVO );
 				response.sendRedirect(contextPath+"/board");
 				return;
 			} else {
 				System.out.println("MemberController.login : 아이디 또는 비밀번호 불일치");
 			}
+		}
+		
+		// 로그아웃 처리
+		else if(pathInfo.equals("/logout")) {
+			HttpSession session = request.getSession(false);
+			session.removeAttribute("auth");
+			response.sendRedirect(contextPath+"/board");
+			return;
 		}
 		
 		else {
