@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ include file="../layout/header.jsp" %>  
-<script src="${contextPath}/resources/js/detail.js"></script> 
+<%@ include file="../layout/header.jsp" %>
+<script src="${contextPath}/resources/js/reply/ReplyService.js"></script>  
+<script src="${contextPath}/resources/js/board/detail.js"></script> 
 
 <div class="container">
 	<div class="jumbotron">
@@ -82,35 +83,62 @@
 				<th colspan="2">
 					<ul class="d-flex justify-content-between">
 						<div>댓글을 작성해주세요</div>
-						<div>작성자 : <input type="text"></div>
+						<div>작성자 : <input type="text" class="reply_writer"></div>
 					</ul>
 				</th>
 				</th>
 			</tr>
 			<tr>
-				<td class="text-center">내용</td>
+				<td class="col-1 text-center"><b>내용</b></td>
 				<td>
-					<textarea rows="5" class="form-control"></textarea>
+					<textarea rows="5" class="form-control reply_content"></textarea>
 				</td>
+			</tr>
+			<tr class="text-right">
+				<td colspan="2"><button class="btn btn-light reply_write">댓글등록</button></td>
 			</tr>
 		</table>
 	</div>
 	<div class="replyList">
 		<div class="card">
-		  <div class="card-header bg-info text-white">댓글목록</div>
+		  <div class="card-header bg-dark text-white">댓글목록</div>
 		  <div class="card-body">
 		  	<ul class="list-group list-group-flush">
 		  		<li class="list-group-item d-flex justify-content-between">
 		  			<div>첫 번째 댓글입니다.</div>
-		  			<div class="badge badge-primary">관리자</div>
+		  			<div class="badge badge-info">관리자</div>
 		  		</li>
 		  		<li class="list-group-item d-flex justify-content-between">
 		  			<div>두 번째 댓글입니다.</div>
-		  			<div class="badge badge-primary">부매니저</div>
+		  			<div class="badge badge-info">부매니저</div>
 		  		</li>
 			</ul>
 		  </div>
 		</div>
 	</div>
+</div>
+
+<div class="modal fade" id="feedback">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">댓글 등록</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+      </div>
+
+    </div>
+  </div>
 </div>
 <%@ include file="../layout/footer.jsp" %>  

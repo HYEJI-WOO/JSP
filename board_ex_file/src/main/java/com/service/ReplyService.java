@@ -1,6 +1,9 @@
 package com.service;
 
+import java.util.List;
+
 import com.dao.ReplyDao;
+import com.domain.ReplyVO;
 
 public class ReplyService {
 	
@@ -8,6 +11,10 @@ public class ReplyService {
 	
 	public ReplyService(ReplyDao dao) {
 		this.dao = dao;
+	}
+
+	public List<ReplyVO> list(int bno) {
+		return dao.list(bno);
 	}
 	
 }

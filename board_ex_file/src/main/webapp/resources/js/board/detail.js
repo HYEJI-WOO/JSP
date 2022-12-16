@@ -1,3 +1,4 @@
+// 게시물 관련
 $(function(){
 	$('.viewMode').hide(); // 파일폼 숨김 / 수정,취소 버튼 숨김
 	
@@ -55,5 +56,25 @@ $(function(){
 			"action" : `${contextPath}/board/removeBoard`,
 			"method" : "post"
 		}).submit();
+	});
+});
+
+$(function(){
+	let bno = $('input[name="bno"]').val();
+	
+	// 댓글 목록
+	replyService.list(bno);
+		
+	// 댓글 쓰기
+	$('.reply_write').on('click', function(){
+		let writer = $('.reply_writer').val()
+		let reply = $('.reply_content').val()
+		
+		let replyVO = {
+			bno : bno,
+			reply : reply,
+			writer : writer
+		}
+		replyService.write(replyVO);
 	});
 });
