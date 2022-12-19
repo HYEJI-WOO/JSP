@@ -43,7 +43,6 @@ public class ReplyController extends HttpServlet {
 			String paramBno = request.getParameter("bno");
 			int bno = Integer.parseInt(paramBno);
 			List<ReplyVO> replyList = service.list(bno);
-			
 			out.print(gson.toJson(replyList));
 			
 		} else if(pathInfo.equals("/write")) {
