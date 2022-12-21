@@ -65,7 +65,7 @@ $(function(){
 	// 댓글 목록
 	replyService.list(bno);
 		
-	// 댓글 쓰기
+	// 댓글 쓰기 버튼 이벤트
 	$('.reply_write').on('click', function(){
 		let writer = $('.reply_writer').val()
 		let reply = $('.reply_content').val()
@@ -76,5 +76,17 @@ $(function(){
 			writer : writer
 		}
 		replyService.write(replyVO);
+	});
+	
+	// 댓글 수정 버튼 이벤트
+	$('.replyList').on('click','.reply_modBtn', function(){
+		let rno = $(this).closest('div').data('rno');
+		alert('수정입니다 ' + rno + '번')
+	});
+	
+	// 댓글 삭제 버튼 이벤트
+	$('.replyList').on('click','.reply_delBtn', function() {
+		let rno = $(this).closest('div').data('rno');
+		alert('삭제입니다 ' + rno + '번')
 	});
 });

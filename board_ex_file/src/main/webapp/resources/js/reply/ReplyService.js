@@ -1,15 +1,3 @@
-function replyListRender(replyList) {
-	let output = '';
-	for(let r of replyList) {
-			output += 
-				`<li class="list-group-item d-flex justify-content-between">
-		  			<div>${r.reply}</div>
-		  			<div class="badge badge-info">${r.writer}</div>
-		  		 </li>`
-	}
-	$('.replyList ul').html(output);
-}
-
 let replyService = {
 	
 	list : function(bno) {
@@ -55,3 +43,36 @@ let replyService = {
 		console.log('댓글삭제')
 	}
 };
+
+// 댓글 화면 렌더링
+function replyListRender(replyList) {
+	let output = '';
+	for(let r of replyList) {
+			output += 
+				`<li class="list-group-item d-flex justify-content-between">
+					<div>
+						<p>${r.reply}</p>
+						<span class="badge badge-info">${r.writer}</span>
+						<span class="badge badge-warning">${r.replyDate}</span>
+					</div>`
+			if(r.writer==auth.id) { // 로그인한 사용자
+				output+=`
+				<div class="align-self-center" data-rno="${r.rno}">
+					<button class="btn btn-sm btn-primary reply_modBtn">수정</button>
+					<button class="btn btn-sm btn-danger reply_delBtn">삭제</button>
+				</div>
+				`;
+	    	}
+	    	if(auth.grade=='ROLE_ADMIN') {
+				output+=`
+				<div class="align-self-center" data-rno="${r.rno}">
+					<button class="btn btn-sm btn-danger reply_delBtn">삭제</button>
+				</div>
+				`;
+	}
+		}
+	output += `</li>`;
+	$('.replyList ul').html(output);
+	
+
+}

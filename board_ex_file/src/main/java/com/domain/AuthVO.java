@@ -1,5 +1,7 @@
 package com.domain;
 
+import com.domain.MemberVO.MemberGrade;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +14,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class AuthVO {
-	
 	private String id;
-	private String auth;
-	
-
+	private MemberGrade grade;
 }

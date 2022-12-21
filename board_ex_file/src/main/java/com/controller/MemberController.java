@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.dao.MemberDao;
 import com.domain.AuthVO;
 import com.domain.MemberVO;
+import com.domain.MemberVO.MemberGrade;
 import com.service.MemberService;
 
 @WebServlet("/member/*")
@@ -81,9 +82,14 @@ public class MemberController extends HttpServlet {
 			
 			if(service.loginService(vo)) {
 				HttpSession session = request.getSession();
+				
+				// 회원 권한 설정
+				MemberGrade grade = service.getMemberGrade(vo.getId()); // 등급조회
 				AuthVO authVO = new AuthVO();
-				authVO.setId(vo.getId());
-				session.setAttribute("auth", authVO);
+				authVO.setId(vo.getId()); // 아이디
+				authVO.setGrade(grade); // 등급
+				session.setAttribute("auth", authVO); // 세션 데이터 바인딩
+				
 				String userURI = (String) session.getAttribute("userURI");
 				if(userURI!=null) {
 					session.removeAttribute("userURI");

@@ -82,8 +82,8 @@
 			<tr>
 				<th colspan="2">
 					<ul class="d-flex justify-content-between">
-						<div>댓글을 작성해주세요</div>
-						<div>작성자 : <input type="text" class="reply_writer"></div>
+						<li>댓글을 작성해주세요</li>
+						<li class="form-inline">작성자 : <input type="text" class="reply_writer form-control ml-2" value="${auth.id}" readonly="readonly"></li>
 					</ul>
 				</th>
 				</th>
@@ -104,14 +104,6 @@
 		  <div class="card-header bg-dark text-white">댓글목록</div>
 		  <div class="card-body">
 		  	<ul class="list-group list-group-flush">
-		  		<li class="list-group-item d-flex justify-content-between">
-		  			<div>첫 번째 댓글입니다.</div>
-		  			<div class="badge badge-info">관리자</div>
-		  		</li>
-		  		<li class="list-group-item d-flex justify-content-between">
-		  			<div>두 번째 댓글입니다.</div>
-		  			<div class="badge badge-info">부매니저</div>
-		  		</li>
 			</ul>
 		  </div>
 		</div>
