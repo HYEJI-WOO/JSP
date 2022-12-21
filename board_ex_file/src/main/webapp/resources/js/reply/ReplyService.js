@@ -25,8 +25,10 @@ let replyService = {
 			url : `${contextPath}/reply/write`,
 			data : replyVO, 
 			success : function(result) {
+				$('.reply_content').val('');
 				$('#feedback').find('.modal-body').html(result);
 				$('#feedback').modal('show');
+				replyService.list(replyVO.bno);
 			},
 			error : function(){
 				alert('댓글 등록 에러');
@@ -39,7 +41,21 @@ let replyService = {
 		console.log('댓글수정')
 	},
 	
-	remove : function() {
+	remove : function(replyVO) {
+		$.ajax({
+			type : 'post',
+			url : `${contextPath}/reply/remove`,
+			data : replyVO,
+			success : function(result) {
+				$('#feedback').find('.modal-body').html(result);
+				$('#feedback').modal('show');
+				replyService.list(replyVO.bno)
+			},
+			error : function() {
+				alert('댓글 삭제 에러')
+			}
+			
+		}); // ajax end
 		console.log('댓글삭제')
 	}
 };
@@ -63,7 +79,7 @@ function replyListRender(replyList) {
 				</div>
 				`;
 	    	}
-	    	if(auth.grade=='ROLE_ADMIN') {
+	    	if(auth.grade=='ROLE_ADMIN' && r.writer != 'admin') {
 				output+=`
 				<div class="align-self-center" data-rno="${r.rno}">
 					<button class="btn btn-sm btn-danger reply_delBtn">삭제</button>
@@ -73,6 +89,4 @@ function replyListRender(replyList) {
 		}
 	output += `</li>`;
 	$('.replyList ul').html(output);
-	
-
 }

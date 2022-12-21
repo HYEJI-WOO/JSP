@@ -20,7 +20,8 @@
 					${b.bno}
 				</td>
 				<td>
-					<a href="${b.bno}" class="title">${b.title}</a>
+					<a href="${b.bno}" class="title">${b.title} 
+					<b>${b.replyCount != 0 ? '['+= b.replyCount+=']' : ''}</b></a>
 				</td>
 				<td>${b.writer}</td>
 				<td>${b.writeDate}</td>

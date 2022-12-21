@@ -39,6 +39,7 @@ public class BoardDao {
 					.writer(rs.getString("writer"))
 					.writeDate(rs.getDate("writeDate"))
 					.imageFileName(rs.getString("imageFileName"))
+					.replyCount(rs.getInt("replyCount"))
 					.build();
 				list.add(vo);
 			}

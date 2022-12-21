@@ -59,7 +59,7 @@
 			</tr>
 			<tr>
 				<td colspan="4" class="text-center">
-					<c:if test="${auth.id eq board.writer}">
+					<c:if test="${auth.id eq board.writer or auth.grade eq 'ROLE_ADMIN'}">
 						<button type="button" class="btn btn-info toModForm">수정하기</button>
 						<button type="button" class="btn btn-secondary remove">삭제</button>
 					</c:if>
@@ -67,7 +67,7 @@
 				</td>
 			</tr>
 			<tr class="viewMode">
-				<c:if test="${auth.id eq board.writer}">
+				<c:if test="${auth.id eq board.writer or auth.grade eq 'ROLE_ADMIN'}">
 					<td colspan="4" class="text-center">
 						<button type="button" class="btn btn-primary modify">수정</button>
 						<button type="button" class="btn btn-secondary backViewMode">취소</button>
@@ -127,7 +127,7 @@
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">확인</button>
       </div>
 
     </div>

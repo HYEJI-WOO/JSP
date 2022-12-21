@@ -121,6 +121,7 @@ public class BoardController extends HttpServlet {
 			return;
 		}
 		
+		// 글삭제 처리
 		else if(pathInfo.equals("/removeBoard")) {
 			Map<String, String> req = multiReq.getMultipartRequest(request);
 			String paramBno = req.get("bno");

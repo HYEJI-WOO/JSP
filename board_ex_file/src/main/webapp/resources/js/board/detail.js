@@ -87,6 +87,11 @@ $(function(){
 	// 댓글 삭제 버튼 이벤트
 	$('.replyList').on('click','.reply_delBtn', function() {
 		let rno = $(this).closest('div').data('rno');
-		alert('삭제입니다 ' + rno + '번')
+		
+		let replyVO = {
+			bno : bno,
+			rno : rno
+		}
+		replyService.remove(replyVO);
 	});
 });

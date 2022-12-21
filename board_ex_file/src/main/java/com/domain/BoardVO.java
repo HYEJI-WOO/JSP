@@ -21,5 +21,6 @@ public class BoardVO {
 	private String content; 
 	private String writer; 
 	private String imageFileName;
-    private Date writeDate; 
+    private Date writeDate;
+    private int replyCount;
 }

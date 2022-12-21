@@ -48,5 +48,56 @@ public class ReplyDao {
 		return list;
 	}
 	
-
+	public void insert(ReplyVO vo) {
+		String query = "insert into reply_tbl(rno,bno,reply,writer) values(seq_reply.nextval,?,?,?)";
+		String query2 = "update board_tbl set replycount=replycount+1 where bno=?";
+		try(Connection conn = dataSource.getConnection();){
+			try (
+					PreparedStatement pstmt = conn.prepareStatement(query);
+					PreparedStatement pstmt2 = conn.prepareStatement(query2);
+			){
+				conn.setAutoCommit(false);
+				pstmt.setInt(1, vo.getBno());
+				pstmt.setString(2, vo.getReply());
+				pstmt.setString(3, vo.getWriter());
+				pstmt.executeUpdate();
+				pstmt2.setInt(1, vo.getBno());
+				pstmt2.executeUpdate();
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			} finally {
+				conn.setAutoCommit(true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void remove(ReplyVO vo) {
+		String query = "delete from reply_tbl where rno=?";
+		String query2 = "update board_tbl set replycount = replycount-1 where bno=?";
+		try(Connection conn = dataSource.getConnection();){
+			try (
+				PreparedStatement pstmt = conn.prepareStatement(query);
+				PreparedStatement pstmt2 = conn.prepareStatement(query2);
+			){
+				conn.setAutoCommit(false);
+				pstmt.setInt(1, vo.getRno());
+				pstmt.executeUpdate();
+				pstmt2.setInt(1, vo.getBno());
+				pstmt2.executeUpdate();
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			} finally {
+				conn.setAutoCommit(true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
